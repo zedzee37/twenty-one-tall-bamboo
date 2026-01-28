@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:block/bamboo_large_leaves",
+  "render_type": "minecraft:cutout"
+}

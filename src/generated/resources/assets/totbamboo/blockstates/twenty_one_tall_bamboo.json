@@ -7,7 +7,7 @@
     },
     {
       "apply": {
-        "model": "minecraft:block/bamboo_large_leaves"
+        "model": "totbamboo:block/leaves"
       },
       "when": {
         "is_top": "true"

@@ -15,7 +15,8 @@ public class TTBBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         final ModelFile bambooModel = models().getExistingFile(this.mcLoc("block/bamboo4_age1"));
-        final ModelFile leavesFile = models().getExistingFile(this.mcLoc("block/bamboo_large_leaves"));
+        final ModelFile leavesModel = models().withExistingParent("block/leaves",
+                this.mcLoc("block/bamboo_large_leaves")).renderType("cutout");
 
         final Block block = TTB.TWENTY_ONE_TALL_BAMBOO_BLOCK.get();
         MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
@@ -23,7 +24,7 @@ public class TTBBlockStateProvider extends BlockStateProvider {
         builder.part()
                 .modelFile(bambooModel).addModel().end();
         builder.part()
-                .modelFile(leavesFile)
+                .modelFile(leavesModel)
                 .addModel()
                 .condition(TwentyOneTallBambooBlock.IS_TOP_BAMBOO, true)
                 .end();

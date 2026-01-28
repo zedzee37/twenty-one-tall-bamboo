@@ -117,7 +117,16 @@ public class TwentyOneTallBambooBlock extends Block {
     }
 
     @Override
-    protected boolean isOcclusionShapeFullBlock(BlockState p_222959_, BlockGetter p_222960_, BlockPos p_222961_) {
+    protected boolean propagatesSkylightDown(@NotNull BlockState state,
+                                             @NotNull BlockGetter p_320953_,
+                                             @NotNull BlockPos p_320082_) {
+        return true;
+    }
+
+    @Override
+    protected boolean isOcclusionShapeFullBlock(@NotNull BlockState p_222959_,
+                                                @NotNull BlockGetter p_222960_,
+                                                @NotNull BlockPos p_222961_) {
         return false;
     }
 }
