@@ -7,9 +7,13 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -32,7 +36,15 @@ public class TTB {
     public static final DeferredBlock<Block> TWENTY_ONE_TALL_BAMBOO_BLOCK = BLOCKS.registerBlock(
             "twenty_one_tall_bamboo",
             (registryName) -> new TwentyOneTallBambooBlock(
-                    BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()
+                    BlockBehaviour.Properties.of()
+                            .noOcclusion()
+                            .mapColor(MapColor.PLANT)
+                            .sound(SoundType.BAMBOO)
+                            .instabreak()
+                            .strength(1.0f)
+                            .dynamicShape()
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)
             ));
     public static final DeferredItem<BlockItem> TWENTY_ONE_TALL_BAMBOO_BLOCK_ITEM = ITEMS
             .registerSimpleBlockItem(

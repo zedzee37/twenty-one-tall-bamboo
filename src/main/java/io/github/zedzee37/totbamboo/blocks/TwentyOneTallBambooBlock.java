@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,12 @@ public class TwentyOneTallBambooBlock extends Block {
             13.0F,
             16.0F,
             13.0F);
+    protected static final VoxelShape SMALL_SHAPE = Block.box((double)5.0F,
+            0.0F,
+            5.0F,
+            11.0F,
+            16.0F,
+            11.0F);
 
     // when the leaves start rendering ig
     private static final int LEAVES_START_POS = 18;
@@ -83,7 +90,8 @@ public class TwentyOneTallBambooBlock extends Block {
                                            @NotNull BlockGetter level,
                                            @NotNull BlockPos pos,
                                            @NotNull CollisionContext context) {
-        return LARGE_SHAPE;
+        Vec3 offset = state.getOffset(level, pos);
+        return SMALL_SHAPE.move(offset.x, offset.y, offset.z);
     }
 
     @Override
