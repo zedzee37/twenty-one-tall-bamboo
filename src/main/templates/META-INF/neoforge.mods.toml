@@ -25,7 +25,7 @@ displayName = "${mod_name}" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL = "https://github.com/zedzee37" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="ttbamboo.png" #optional
+#logoFile="totbamboo.png" #optional
 # A text field displayed in the mod UI
 #credits="" #optional
 # A text field displayed in the mod UI
