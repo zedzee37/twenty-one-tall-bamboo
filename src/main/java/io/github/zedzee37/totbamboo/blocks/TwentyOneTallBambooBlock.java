@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TwentyOneTallBambooBlock extends Block {
-    private static final BooleanProperty IS_TOP_BAMBOO = BooleanProperty.create("is_top");
+    public static final BooleanProperty IS_TOP_BAMBOO = BooleanProperty.create("is_top");
     private static final BlockState[] BLOCK_STATES = new BlockState[21];
 
     // maybe a little stolen from BambooStalkBlock

@@ -32,7 +32,7 @@ public class TTB {
     public static final DeferredBlock<Block> TWENTY_ONE_TALL_BAMBOO_BLOCK = BLOCKS.registerBlock(
             "twenty_one_tall_bamboo",
             (registryName) -> new TwentyOneTallBambooBlock(
-                    BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()
             ));
     public static final DeferredItem<BlockItem> TWENTY_ONE_TALL_BAMBOO_BLOCK_ITEM = ITEMS
             .registerSimpleBlockItem(

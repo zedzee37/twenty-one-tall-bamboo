@@ -1,7 +1,17 @@
 {
-  "variants": {
-    "": {
-      "model": "totbamboo:block/twenty_one_tall_bamboo"
+  "multipart": [
+    {
+      "apply": {
+        "model": "minecraft:block/bamboo4_age1"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/bamboo_large_leaves"
+      },
+      "when": {
+        "is_top": "true"
+      }
     }
-  }
+  ]
 }
