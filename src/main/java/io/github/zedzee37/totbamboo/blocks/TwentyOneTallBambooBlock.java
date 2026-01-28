@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -36,10 +37,10 @@ public class TwentyOneTallBambooBlock extends Block {
         super(p_49795_);
         registerDefaultState(defaultBlockState().setValue(IS_TOP_BAMBOO, false));
         for (int i = 0; i < BLOCK_STATES.length; i++) {
-            BLOCK_STATES[i] = defaultBlockState();
-
             if (i >= LEAVES_START_POS) {
-                BLOCK_STATES[i].setValue(IS_TOP_BAMBOO, true);
+                BLOCK_STATES[i] = defaultBlockState().setValue(IS_TOP_BAMBOO, true);
+            } else {
+                BLOCK_STATES[i] = defaultBlockState();
             }
         }
     }
@@ -49,7 +50,7 @@ public class TwentyOneTallBambooBlock extends Block {
         Level level = context.getLevel();
         BlockPos curPos = context.getClickedPos();
         for (int i = 0; i < BLOCK_STATES.length; i++) {
-            if (!level.getBlockState(curPos).canBeReplaced()) {
+            if (!level.getBlockState(curPos).canBeReplaced() || level.isOutsideBuildHeight(curPos)) {
                 return null;
             }
             curPos = curPos.above();
@@ -72,6 +73,8 @@ public class TwentyOneTallBambooBlock extends Block {
         for (int i = 1; i < BLOCK_STATES.length; i++) {
             BlockState blockState = BLOCK_STATES[i];
             level.setBlock(curPos, blockState, Block.UPDATE_ALL);
+            level.updateNeighborsAt(curPos, Blocks.AIR);
+            curPos = curPos.above();
         }
     }
 
@@ -111,6 +114,11 @@ public class TwentyOneTallBambooBlock extends Block {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(IS_TOP_BAMBOO);
         super.createBlockStateDefinition(builder);
+    }
+
+    @Override
+    protected boolean isOcclusionShapeFullBlock(BlockState p_222959_, BlockGetter p_222960_, BlockPos p_222961_) {
+        return false;
     }
 }
 

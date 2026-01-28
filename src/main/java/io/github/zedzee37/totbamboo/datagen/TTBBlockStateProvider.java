@@ -14,7 +14,7 @@ public class TTBBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         final ModelFile twentyOneTallBambooModel = models().withExistingParent("twenty_one_tall_bamboo",
-                this.mcLoc("block/bamboo"));
+                this.mcLoc("block/bamboo4_age1"));
         simpleBlock(TTB.TWENTY_ONE_TALL_BAMBOO_BLOCK.get(), twentyOneTallBambooModel);
     }
 }
