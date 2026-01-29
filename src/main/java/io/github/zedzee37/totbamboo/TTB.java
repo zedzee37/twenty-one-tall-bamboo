@@ -2,18 +2,23 @@ package io.github.zedzee37.totbamboo;
 
 import com.mojang.logging.LogUtils;
 import io.github.zedzee37.totbamboo.blocks.TwentyOneTallBambooBlock;
+import io.github.zedzee37.totbamboo.datagen.TTBBlockLootSubProvider;
 import io.github.zedzee37.totbamboo.datagen.TTBBlockStateProvider;
+import io.github.zedzee37.totbamboo.datagen.TTBLangProvider;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -25,6 +30,10 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Mod(TTB.MODID)
 public class TTB {
@@ -43,13 +52,15 @@ public class TTB {
                             .instabreak()
                             .strength(1.0f)
                             .dynamicShape()
+                            .forceSolidOn()
                             .offsetType(BlockBehaviour.OffsetType.XZ)
                             .pushReaction(PushReaction.DESTROY)
             ));
     public static final DeferredItem<BlockItem> TWENTY_ONE_TALL_BAMBOO_BLOCK_ITEM = ITEMS
             .registerSimpleBlockItem(
                     "twenty_one_tall_bamboo",
-                    TWENTY_ONE_TALL_BAMBOO_BLOCK);
+                    TWENTY_ONE_TALL_BAMBOO_BLOCK
+            );
 
     public TTB(IEventBus modEventBus, ModContainer modContainer) {
         BLOCKS.register(modEventBus);
@@ -66,9 +77,24 @@ public class TTB {
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
+        event.createProvider((packOutput, lookupRegistries) -> new LootTableProvider(
+                packOutput,
+                Collections.emptySet(),
+                List.of(
+                        new LootTableProvider.SubProviderEntry(
+                                TTBBlockLootSubProvider::new, LootContextParamSets.BLOCK)
+                ),
+                lookupRegistries
+        ));
+
         generator.addProvider(
                 event.includeClient(),
                 new TTBBlockStateProvider(output, existingFileHelper)
+        );
+
+        generator.addProvider(
+                event.includeClient(),
+                new TTBLangProvider(output, "en_us")
         );
     }
 

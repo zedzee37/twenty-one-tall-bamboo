@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "totbamboo:twenty_one_tall_bamboo"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "totbamboo:blocks/twenty_one_tall_bamboo"
+}

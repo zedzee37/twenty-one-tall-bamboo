@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.zedzee37.totbamboo.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AllRecipeTypesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

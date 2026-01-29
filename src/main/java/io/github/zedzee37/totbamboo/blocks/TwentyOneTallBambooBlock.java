@@ -2,12 +2,14 @@ package io.github.zedzee37.totbamboo.blocks;
 
 import io.github.zedzee37.totbamboo.TTB;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.util.TriState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,6 +66,14 @@ public class TwentyOneTallBambooBlock extends Block {
             curPos = curPos.above();
         }
         return defaultBlockState();
+    }
+
+
+    @Override
+    protected boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+        TriState soilDecision = level.getBlockState(pos.below()).canSustainPlant(level, pos.below(), net.minecraft.core.Direction.UP, state);
+        if (!soilDecision.isDefault()) return soilDecision.isTrue();
+        return level.getBlockState(pos.below()).is(BlockTags.BAMBOO_PLANTABLE_ON);
     }
 
     @Override
